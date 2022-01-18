@@ -17,7 +17,7 @@ const Home = () => {
     
 
     useEffect(() => {
-        const query = userQuery(userInfo?.googleId); // "?." is optional chianing
+        const query = userQuery(userInfo?.googleId); // "?." is optional chaining
         client.fetch(query)
             .then((data) => {setUser(data[0]);})
     }, [])
@@ -27,7 +27,7 @@ const Home = () => {
     }, [])
 
     return (
-        <div className='flex bg-gray-50 md:flex-row flex-col h-screen transaction-height duration-75 ease-out'>
+        <div className='flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out'>
         {/* 
         use md:flex-row to apply the flex-row utility at only medium screen sizes and above.
         Use flex-row to position flex items horizontally in the same direction as text
@@ -41,8 +41,9 @@ const Home = () => {
             <Link to="/">
                 <img src={logo} alt="logo" className="w-28"/>
             </Link>
-            <Link to={`user-profile/${user?._id}`}>
-                <img src={user?.image} alt="logo" className="w-28"/>
+            <Link to={`user-profile/${user?._id}` }>
+
+                <img src={user?.image} alt="user-pic" className="w-9 h-9 rounded-full"/>
             </Link>
 
             </div>

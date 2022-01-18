@@ -16,7 +16,7 @@ const categories = [
     {name:'Other'},
 ]
 
-const Sidebar = (user, closeToggle) => {
+const Sidebar = ({user, closeToggle}) => {
 
     const handleCloseSidebar = () => {
         if(closeToggle) closeToggle(false)
@@ -30,8 +30,6 @@ const Sidebar = (user, closeToggle) => {
                    onClick={handleCloseSidebar}
                     >
                 <img src={logo} alt="logo" className=" w-full"/>
-                
-
                 </Link>
                 <div className="flex flex-col gap-5">
                 <NavLink
@@ -44,21 +42,42 @@ const Sidebar = (user, closeToggle) => {
                 Home
                 </NavLink>
                 <h3 className='mt-2 px-5 text-base 2xl:text-xl'>Discover categories</h3>
-                {categories.slice(0, categories.length-1).map(category=>(
+                {categories.slice(0, categories.length-1).map((category)=>(
                     <NavLink
                       to={`/category/${category.name}`}
                     className={({isActive}) => isActive ? isActiveStyle : isNotActiveStyle}
                      onClick={handleCloseSidebar}
                      key={category.name}
                     >
+
                   {category.name}
                     </NavLink>
                 ))}
                 {/* we don't want other to be a category */}
                 </div>
             </div>
-        </div>
-    )
-}
 
-export default Sidebar
+            {/* User Profile */}
+            {user && (
+                
+                <Link
+                to={`user-profile/${user.id}`}
+                className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3"
+                // margin in tailwindcss
+                onClick={handleCloseSidebar}
+                >
+                <img src={user?.image} className="w-10 h-10 rounded-full" alt="user-profile" />
+                <p>
+                    {user.userName}
+                </p>
+                </Link>
+                
+            )}
+            
+        </div>
+        
+
+    );
+};
+
+export default Sidebar;
