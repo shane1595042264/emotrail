@@ -10,7 +10,6 @@ import { fetchUser } from '../utils/fetchUser';
 
 const Pin = ({pin: {postedBy, image, _id, destination, save }}) => {
   const [postHovered, setPostHovered] = useState(false);
-  const [savingPost, setSavingPost] = useState(false);
   const navigate = useNavigate();
   const user = fetchUser();
 
@@ -19,15 +18,29 @@ const Pin = ({pin: {postedBy, image, _id, destination, save }}) => {
 
 const savePin = (id) => {
   if(!alreadySaved){
-    setSavingPost(true);
     client
     .patch(id)
     .setIfMissing({save:[]})
     .insert('after', 'save[-1]', [{
       _key:uuidv4,
-      userId: user.googleId
+      userId: user.googleId,
+      postedBy: {
+        _type: 'postedBy',
+        _ref: user.googleId
+      }
     }])
+    .commit()
+    .then(()=>{
+      window.location.reload();
+    })
   }
+}
+
+const deletePin = (id) =>{
+  client.delete(id)
+  .then(()=>{
+    window.location.reload();
+  })
 }
 
   return (
@@ -59,7 +72,7 @@ const savePin = (id) => {
         </div>
         {alreadySaved ?(
           <button type='button' className='bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outlined-none'>
-            (save?.length) Saved
+            {save?.length} Saved
           </button>
         ):(
           <button
@@ -74,10 +87,46 @@ const savePin = (id) => {
 
         }
         </div>
+        <div className=' flex justify-between items-center gap-2 w-full'>
+        {destination && (
+          <a
+          href={destination}
+          target="_blank"
+          rel="noreferrer"
+          className=' bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:100 hover:shadow-md'
+          >
+          <BsFillArrowUpRightCircleFill/>
+          {destination.length > 20 ?destination.slice(8, 20): destination.slice(8)}
+
+          </a>
+        )}
+          {postedBy?._id === user.googleId && (
+            <button
+            type='button'
+            onClick={(e)=> {
+             e.stopPropagation();
+             deletePin(_id);
+           }}
+           className=' bg-white p-2 opacity-70 hover:opacity-100 font-bold text-dark px-5 py-1 text-base rounded-3xl hover:shadow-md outlined-none'
+            >
+            <AiTwotoneDelete />
+            </button>
+          )
+
+          }
+        </div>
         </div>
       )
     }
   </div>
+  <Link to={`user-profile/${postedBy?._id}`} className=' flex gap-2 mt-2 items-center'>
+  <img className=' w-8 h-8 rounded-full object-cover'
+    src={postedBy?.image}
+    alt="user-profile"
+  />
+  <p className='font-semibold capitalize'>{postedBy?.userName}</p>
+
+  </Link>
   </div>
   );
 };
