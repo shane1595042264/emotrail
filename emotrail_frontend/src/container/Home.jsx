@@ -9,13 +9,13 @@ import {client} from '../client';
 import logo from '../assets/logo3.png';
 import { fetchUser } from '../utils/fetchUser';
 
+
+
 const Home = () => {
     const [toggleSidebar, setToggleSidebar] = useState(false)
     const [user, setUser] = useState(null)
     const scrollRef = useRef(null);
     const userInfo = fetchUser();
-
-    
     useEffect(() => {
         const query = userQuery(userInfo?.googleId);
 

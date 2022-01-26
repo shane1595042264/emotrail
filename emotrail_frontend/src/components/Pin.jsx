@@ -8,6 +8,8 @@ import {BsFillArrowUpRightCircleFill} from 'react-icons/bs';
 import {client, urlFor } from '../client';
 import { fetchUser } from '../utils/fetchUser';
 
+
+
 const Pin = ({pin: {postedBy, image, _id, destination, save }}) => {
   const [postHovered, setPostHovered] = useState(false);
   const navigate = useNavigate();
@@ -52,7 +54,7 @@ const deletePin = (id) =>{
     className='relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
   
   >
-      <img className=' rounded-lg w-full' alt='user-post' src={urlFor(image).width(250).url()}/>
+      {image && (<img className=' rounded-lg w-full' alt='user-post' src={(urlFor(image).width(250).url())}/>)}
     {
       postHovered && (
         <div 
