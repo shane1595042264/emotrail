@@ -29,7 +29,9 @@ export default{
         type:"image",
         options: {
             hotspot: true
-        }
+        },
+
+        //change option to crops
     },
     {
         name:'userId',

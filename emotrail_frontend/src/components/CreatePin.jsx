@@ -55,12 +55,12 @@ const savePin = () => {
         asseet: {
           _type:'reference',
           _ref: imageAsset?._id
-        }
+        },
       },
       userId: user._id,
       postedBy: {
         _type:'postedBy',
-        _ref: user?._id,
+        _ref: user._id,
       },
       category,
     }
@@ -70,7 +70,7 @@ const savePin = () => {
     })
   }else{
     setFields(true);
-    setTimeout(()=>{setFields(false)}, 2000);
+    setTimeout(()=>setFields(false), 2000);
   }
   
 
@@ -152,7 +152,7 @@ const savePin = () => {
             value={about}
             onChange={(e)=> setAbout(e.target.value)}
             placeholder='What is your pin about'
-            className=' outline-none text-base sm:text-lg font-bold border-b-2 border-gray-200 p-2'
+            className=' outline-none text-base sm:text-lg  border-b-2 border-gray-200 p-2'
           />
           <input
             type="url"
@@ -172,10 +172,10 @@ const savePin = () => {
               Select Category
               </option>
               {categories.map((category)=> 
-                <option className=' text-base border-0 outline-none capitalize bg-white text-black' key={category.name}>
+          (<option className=' text-base border-0 outline-none capitalize bg-white text-black' key={category.name}>
                   {category.name}
                 </option>
-              )}
+              ))}
             </select>
            
           </div>
