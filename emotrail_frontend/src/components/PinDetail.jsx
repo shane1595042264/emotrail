@@ -7,6 +7,7 @@ import {client, urlFor} from '../client';
 import second from './MasonryLayout';
 import {pinDetailMorePinQuery, pinDetailQuery} from '../utils/data';
 import Spinner from './Spinner';
+import MasonryLayout from './MasonryLayout';
 
 const PinDetail = ( {user}) => {
   const [pins, setPins] = useState(null);
@@ -14,6 +15,28 @@ const PinDetail = ( {user}) => {
   const [comment, setComment] = useState('');
   const [addingComment, setAddingComment] = useState(false);
   const {pinId} = useParams(); //fetch dynamic element in Pins
+
+  const addComment = ()=> {
+    if(comment) {
+      setAddingComment(true);
+      client.patch(pinId)
+      .setIfMissing({comments:[]})
+      .insert('after', 'comments[-1]', [{
+        comment,
+        _key: uuidv4(),
+        postedBy:{
+          _type:'postedBy',
+          _ref:user._id
+        }
+      }])
+      .commit()
+      .then(()=> {
+        fetchPinDetails();
+        setComment('');
+        setAddingComment(false)
+      })
+    }
+  }
 
 const fetchPinDetails = () =>{
   let query = pinDetailQuery(pinId);
@@ -42,6 +65,7 @@ useEffect(() => {
 if(!pinDetail) return <Spinner message="Loading pin..."/>
 
   return (
+    <>
   <div className=' flex xl:flex-row flex-col m-auto bg-white' style={{ maxWidth:'1500px', borderRadius:'32px'}}>
   <div className=' flex justify-center items-center md:items-start flex-initial'>
     <img
@@ -101,17 +125,42 @@ if(!pinDetail) return <Spinner message="Loading pin..."/>
 
   </div>
   <div className=' flex flex-wrap mt-6 gap-3'>
-  <Link to={`user-profile/${pinDetail.postedBy?._id}`} className=' flex gap-2 mt-2 items-center'>
-  <img className=' w-8 h-8 rounded-full object-cover'
+  <Link to={`user-profile/${pinDetail.postedBy?._id}`} >
+  <img className=' w-10 h-10 rounded-full cursor-pointer'
     src={pinDetail.postedBy?.image}
     alt="user-profile"
   />
 
   </Link>
-
+<input 
+  className=' flex-1 bg-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300'
+  type="text"
+  placeholder="Add a comment"
+  value={comment}
+  onChange={(e)=> setComment(e.target.value)}
+/>
+<button
+type="button"
+className=' bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none'
+onClick={addComment}
+>
+{addingComment ? "Posting the comment...": 'Post'}
+</button>
   </div>
   </div>
   </div>
+  {console.log(pins)}
+{pins?.length>0 ? (
+  <>
+    <h2 className=' text-center font-bold text-2xl mt-8 mb-4'>
+      More like this
+    </h2>
+    <MasonryLayout pins={pins}/>
+  </>
+):(
+  <Spinner message="Loading more pins...."/>
+)}
+</>
   );
 };
 

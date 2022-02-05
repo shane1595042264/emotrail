@@ -89,16 +89,18 @@ const deletePin = (id) =>{
 
         }
         </div>
-        <div className=' flex justify-between items-center gap-2 w-full'>
+        <div className=' flex justify-between items-center gap-2 w-full'> 
+        {/* about url */}
         {destination && (
           <a
           href={destination}
           target="_blank"
           rel="noreferrer"
           className=' bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:100 hover:shadow-md'
+          onClick={(e)=>e.stopPropagation()}
           >
           <BsFillArrowUpRightCircleFill/>
-          {destination.length > 20 ?destination.slice(8, 20): destination.slice(8)}
+          {destination.length > 15 ? `${destination.slice(0,15)}...`: destination}
 
           </a>
         )}
