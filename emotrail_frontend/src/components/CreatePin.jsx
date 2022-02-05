@@ -52,7 +52,7 @@ const savePin = () => {
       destination,
       image: {
         _type:'image',
-        asseet: {
+        asset: {
           _type:'reference',
           _ref: imageAsset?._id
         },
