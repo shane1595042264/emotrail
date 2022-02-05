@@ -15,7 +15,7 @@ const Pin = ({pin: {postedBy, image, _id, destination, save }}) => {
   const navigate = useNavigate();
   const user = fetchUser();
 
-  const alreadySaved = !!(save?.filter((item) => item.postedBy._id === user.googleId))?.length
+  const alreadySaved = !!(save?.filter((item) => item?.postedBy?._id === user?.googleId))?.length
 // This double negative is to convert this array into boolean and negate it again to turn it into the boolean what it stands for(0->false, any positive number -> true).
 
 const savePin = (id) => {
@@ -25,10 +25,10 @@ const savePin = (id) => {
     .setIfMissing({save:[]})
     .insert('after', 'save[-1]', [{
       _key:uuidv4,
-      userId: user.googleId,
+      userId: user?.googleId,
       postedBy: {
         _type: 'postedBy',
-        _ref: user.googleId
+        _ref: user?.googleId
       }
     }])
     .commit()
@@ -104,7 +104,7 @@ const deletePin = (id) =>{
 
           </a>
         )}
-          {postedBy?._id === user.googleId && (
+          {postedBy?._id === user?.googleId && (
             <button
             type='button'
             onClick={(e)=> {
