@@ -35,6 +35,7 @@ const Home = () => {
          */}
          <div className='hidden md:flex h-screen flex-initial'>
             <Sidebar user={user && user} closeToggle={setToggleSidebar}/>
+
          </div>
             <div className='flex md:hidden w-full flex-row'>
             <div className="p-2 w-full flex flex-row justify-between items-center shadow-md">

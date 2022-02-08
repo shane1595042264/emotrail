@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './container/Home';
 import { fetchUser } from './utils/fetchUser';
-import BarChart from './components/BarChart';
+import AllChart from './components/AllChart';
 
 
 
@@ -20,7 +20,7 @@ return(
     <Routes>
       <Route path="login" element={<Login />} />
       <Route path="/*" element={<Home />} />
-      <Route path="bar-chart" element={<BarChart />} />
+      <Route path="chart" element={<AllChart />} />
 
     </Routes>
 );

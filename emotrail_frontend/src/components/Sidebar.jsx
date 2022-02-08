@@ -1,7 +1,8 @@
 import React from 'react'
 import {NavLink, Link} from 'react-router-dom';
 import {RiHomeFill} from 'react-icons/ri';
-import {IoIosArrowsForward} from 'react-icons/io';
+import {IoIosArrowsForwar} from 'react-icons/io';
+import {AiFillPieChart} from 'react-icons/ai';
 import logo from '../assets/logo3.png';
 import {categories} from '../utils/data';
 
@@ -25,6 +26,13 @@ const Sidebar = ({user, closeToggle}) => {
                    onClick={handleCloseSidebar}
                     >
                 <img src={logo} alt="logo" className=" w-full"/>
+                </Link>
+                <Link
+                   to="/chart"
+                   className="flex px-5 gap-2 my-6 pt-1 w-190 items-center"
+                    >
+                <AiFillPieChart fontSize={30} className='cursor-pointer w-full'/>
+                Click to view Chart
                 </Link>
                 <div className="flex flex-col gap-5">
                 <NavLink

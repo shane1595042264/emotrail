@@ -13,5 +13,10 @@ export default {
             title: 'Image' ,
             type:'string'
         },
+        {
+            name:"admin",
+            title:"Admin",
+            type:"boolean"
+        }
     ]
 }

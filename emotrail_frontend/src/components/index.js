@@ -6,4 +6,4 @@ export {default as PinDetail} from './PinDetail';
 export {default as Search} from './Search';
 export {default as CreatePin} from './CreatePin';
 export {default as UserProfile} from './UserProfile';
-export {default as BarChart} from './BarChart';
+export {default as AllChart} from './AllChart';
