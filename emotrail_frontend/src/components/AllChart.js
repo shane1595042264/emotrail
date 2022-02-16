@@ -1,4 +1,7 @@
-import React from 'react';
+
+import React from 'react'
+
+
 
 import {
     Chart as ChartJS,
@@ -13,15 +16,20 @@ import {
   Legend,
   } from 'chart.js';
 
+  
+
 import { Pie } from 'react-chartjs-2';
 
 
 import { Bar } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
+import {userQuery} from '../utils/data';
+import {client} from '../client';
 
 function r(max) {
   return Math.floor(Math.random() * max);
 }
+
 
 const red = 'rgba(255, 99, 132, 0.5)'
 const blue ='rgba(53, 162, 235, 0.5)'
@@ -137,12 +145,13 @@ export const options_line = {
     ],
   };
 const AllChart = () => {
-  return <div>
-    
-    <Bar options={options} data={data} />
+
+  return  <div>
+ <Bar options={options} data={data} />
     <Line options={options_line} data={data_line} />
     <Pie  data={data_pie} />
-  </div>;
+  </div>
+  
 };
 
 export default AllChart;

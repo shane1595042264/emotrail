@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {NavLink, Link} from 'react-router-dom';
 import {RiHomeFill} from 'react-icons/ri';
 import {IoIosArrowsForwar} from 'react-icons/io';
 import {AiFillPieChart} from 'react-icons/ai';
 import logo from '../assets/logo3.png';
 import {categories} from '../utils/data';
+import { useFetch } from "react-async";
 
 
 
@@ -17,8 +18,16 @@ const Sidebar = ({user, closeToggle}) => {
     const handleCloseSidebar = () => {
         if(closeToggle) closeToggle(false)
     }
+    const [userAdmin, setUserAdmin] = useState(false)
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //       setUserAdmin()
+    //     }, 2000);
+    //     return () => clearTimeout(timer);
+    //   }, []);
     return (
         <div className="flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar">
+        
             <div className="flex flex-col">
                 <Link
                    to="/"
@@ -27,13 +36,28 @@ const Sidebar = ({user, closeToggle}) => {
                     >
                 <img src={logo} alt="logo" className=" w-full"/>
                 </Link>
-                <Link
+               
+                {/* Chart */}
+                
+               
+                   {/* !!user.admin &&  */}
+                   {user?.admin && <button
+          type='button'
+          className=' absolute bottom-3 right-3 p-3 rounded-full bg-red-600 text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out'
+          onClick={()=>{console.log('yes');  console.log(!!user.admin);}}
+          >
+          {console.log(user)}
+
+                {true && <Link
                    to="/chart"
                    className="flex px-5 gap-2 my-6 pt-1 w-190 items-center"
                     >
                 <AiFillPieChart fontSize={30} className='cursor-pointer w-full'/>
                 Click to view Chart
-                </Link>
+                </Link>}
+
+
+          </button> }
                 <div className="flex flex-col gap-5">
                 <NavLink
                 to="/"

@@ -5,7 +5,7 @@ export default {
     fields:[
         {
             name:"userName",
-            title:"Username",
+            title:"UserName",
             type:"string"
         },
         {
@@ -18,5 +18,8 @@ export default {
             title:"Admin",
             type:"boolean"
         }
-    ]
+    ],
+    initialValue: {
+        admin: false
+      }
 }
