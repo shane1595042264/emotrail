@@ -134,6 +134,10 @@ export const searchQuery = (searchTerm) => {
     }`
     return query;
 }
+export const emotionNum = (emotionType) => {
+    const query = `count(*[_type == "pin" && emotion match '${emotionType}*'])`
+    return query;
+}
 
 export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) { 
     image{

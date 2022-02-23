@@ -14,6 +14,7 @@ const CreatePin = ({ user }) => {
   const [title, setTitle] = useState('');
   const [about, setAbout] = useState("");
   const [destination, setDestination] = useState('');
+  const [emotion, setEmotion] = useState('');
   const [loading, setLoading] = useState(false);
   const [fields, setFields] = useState(false);
   const [category, setCategory] = useState(null);
@@ -44,7 +45,7 @@ const uploadImage = (e) => {
 }
 
 const savePin = () => {
-  if(title && about && destination && imageAsset?._id && category){
+  if(title && about && destination && imageAsset?._id && category && emotion){
     const doc = {
       _type: 'pin',
       title,
@@ -63,6 +64,7 @@ const savePin = () => {
         _ref: user._id,
       },
       category,
+      emotion,
     }
     client.create(doc)
     .then(()=>{
@@ -179,6 +181,39 @@ const savePin = () => {
             </select>
            
           </div>
+          <div className=' flex justify-center items-center mt-5'>
+          <p className='mb-2 font-semibold text-lg sm:text-xl'> How are you feeling today? </p>
+          </div>
+          <div className=' flex justify-center items-center mt-5 p-5'>
+          
+          <button
+   type='button'
+   onClick={()=>setEmotion("Happy/Excited")}
+   className=' bg-yellow-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Happy or Excited
+   </button>
+          <button
+   type='button'
+   onClick={()=>setEmotion('Relaxed/Satisfied')}
+   className=' bg-green-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Relaxed or Satisfied
+   </button>
+          <button
+   type='button'
+   onClick={()=>setEmotion('Sad/Bored')}
+   className=' bg-blue-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Sad or Bored
+   </button>
+          <button
+   type='button'
+   onClick={()=>setEmotion('Angry/Annoyed')}
+   className=' bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Angry or Annoyed
+   </button>
+</div>
+<div  className=' flex justify-center items-center mt-5 p-5'>
+<p className='mb-2 font-semibold text-lg sm:text-xl'> Your emotion is: {emotion} </p>
+</div>
 <div className=' flex justify-end items-end mt-5'>
    <button
    type='button'
@@ -187,6 +222,8 @@ const savePin = () => {
     Save Pin
    </button>
             </div>
+            
+
           </div>
       </div>
     </div>

@@ -16,10 +16,14 @@ export default {
         {
             name:"admin",
             title:"Admin",
-            type:"boolean"
+            type:"boolean",
+            initialValue: false,
+        },
+        {
+            name:"grade",
+            title:"Grade",
+            type:"string",
+            initialValue: "N/A",
         }
     ],
-    initialValue: {
-        admin: false
-      }
 }

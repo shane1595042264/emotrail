@@ -55,5 +55,10 @@ export default{
         type:"array",
         of: [{type: 'comment'}]
     },
+    {
+        name:'emotion',
+        title: "Emotion",
+        type:'string',
+    }
 ]
 }

@@ -19,7 +19,7 @@ import {
   
 
 import { Pie } from 'react-chartjs-2';
-
+import {emotionNum} from '../utils/data'
 
 import { Bar } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
@@ -47,6 +47,7 @@ ChartJS.register(
     Legend,
     ArcElement
   );
+  
 export const options = {
     responsive: true,
     plugins: {
@@ -76,22 +77,22 @@ export const options_line = {
     labels,
     datasets: [
       {
-        label: 'Dataset 1',
-        data: labels.map((item) => item = r(200)),
+        label: 'Angry/Annoyed',
+        data: labels.map((item) => item = emotionNum('Angry/Annoyed')),
         backgroundColor: red,
       },
       {
-        label: 'Dataset 2',
+        label: 'Sad/Bored',
         data: labels.map((item ) => item = r(200)),
         backgroundColor: blue,
       },
       {
-        label: 'Dataset 3',
-        data: labels.map((item ) => item = r(200)),
+        label: 'Happy/Excited',
+        data: labels.map((item ) => item = emotionNum('Happy/Excited')),
         backgroundColor: yellow,
       },
       {
-        label: 'Dataset 4',
+        label: 'Relaxed/Satisfied',
         data: labels.map((item ) => item = r(200)),
         backgroundColor: green,
       },
@@ -147,6 +148,7 @@ export const options_line = {
 const AllChart = () => {
 
   return  <div>
+  {emotionNum('Happy/Excited')}
  <Bar options={options} data={data} />
     <Line options={options_line} data={data_line} />
     <Pie  data={data_pie} />
