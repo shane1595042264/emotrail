@@ -23,7 +23,7 @@ export default {
             name:"grade",
             title:"Grade",
             type:"string",
-            initialValue: "N/A",
+            initialValue: "somethingpls"
         }
     ],
 }

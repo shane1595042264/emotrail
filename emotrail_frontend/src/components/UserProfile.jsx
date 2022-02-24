@@ -19,6 +19,7 @@ const UserProfile = () => {
     const [pins, setPins] = useState(null);
     const [text, setText] = useState('Created');
     const [activeBtn, setActiveBtn] = useState('created');
+    const [gradeCurrent, setGradeCurrent] = useState("undefined");
     const navigate = useNavigate();
     const {userId} = useParams();
 
@@ -28,6 +29,7 @@ const UserProfile = () => {
       client.fetch(query)
       .then((data)=> {
           setUser(data[0])
+          console.log(data);
       })
     
     }, [userId]);
@@ -61,6 +63,7 @@ const UserProfile = () => {
             <div className=' flex flex-col pb-5'>
                 <div className=' relative flex flex-col mb-7'>
                 <div className=' flex flex-col justify-center items-center'>
+                {console.log(user.grade)}
                 <img 
                     src={randomImage}
                     className=' w-full h-370 2xl:h-510 shadow-lg object-cover'
