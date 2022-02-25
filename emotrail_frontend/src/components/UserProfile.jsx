@@ -18,8 +18,8 @@ const UserProfile = () => {
     const [user, setUser] = useState(null);
     const [pins, setPins] = useState(null);
     const [text, setText] = useState('Created');
+    const [currentGrade, setCurrentGrade] = useState(user?.grade);
     const [activeBtn, setActiveBtn] = useState('created');
-    const [gradeCurrent, setGradeCurrent] = useState("undefined");
     const navigate = useNavigate();
     const {userId} = useParams();
 
@@ -29,10 +29,16 @@ const UserProfile = () => {
       client.fetch(query)
       .then((data)=> {
           setUser(data[0])
-          console.log(data);
+        //   console.log(data);
       })
     
     }, [userId]);
+
+    useEffect(() => {
+        setCurrentGrade(user?.grade)
+    
+    }, [userId]);
+    
     useEffect(() => {
       if(text==='Created') {
           const createdPinsQuery = userCreatedPinsQuery(userId);
@@ -54,7 +60,20 @@ const UserProfile = () => {
         localStorage.clear();
         navigate('/login');
     }
+    const setGrade = (gradeName)=>{
     
+        client.patch(user._id)
+        .set({grade: gradeName})
+        .commit()
+        .then((e)=>{
+            console.log('Update succeeded');
+            console.log(e);
+            setCurrentGrade(gradeName);
+        })
+        .catch((err)=>{
+            console.log('Update failed', err.message);
+        })
+    }
     if(!user) {
         return <Spinner message="Loading profile..."/>
     }
@@ -63,7 +82,7 @@ const UserProfile = () => {
             <div className=' flex flex-col pb-5'>
                 <div className=' relative flex flex-col mb-7'>
                 <div className=' flex flex-col justify-center items-center'>
-                {console.log(user.grade)}
+                {/* {console.log(user.grade)} */}
                 <img 
                     src={randomImage}
                     className=' w-full h-370 2xl:h-510 shadow-lg object-cover'
@@ -122,6 +141,35 @@ const UserProfile = () => {
                         Saved
                     </button>
                 </div>
+                <p className='flex justify-center mb-2 font-semibold text-lg sm:text-xl'> What's your current grade?</p>
+                <div className=' flex justify-center items-center mt-5 p-5'>
+          
+          <button
+   type='button'
+   onClick={()=>setGrade("Freshman")}
+   className=' bg-yellow-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Freshman
+   </button>
+          <button
+   type='button'
+   onClick={()=>setGrade('Sophomore')}
+   className=' bg-green-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Sophomore
+   </button>
+          <button
+   type='button'
+   onClick={()=>setGrade('Junior')}
+   className=' bg-blue-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Junior
+   </button>
+          <button
+   type='button'
+   onClick={()=>setGrade('Senior')}
+   className=' bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Senior
+   </button>
+</div>
+ <p className='flex justify-center mb-2 font-semibold text-lg sm:text-xl'> Your current grade is {currentGrade}</p>
                     {pins?.length ? (
                         <div className=' px-2'>
                         <MasonryLayout pins={pins}/>
