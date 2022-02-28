@@ -7,3 +7,5 @@ export {default as Search} from './Search';
 export {default as CreatePin} from './CreatePin';
 export {default as UserProfile} from './UserProfile';
 export {default as AllChart} from './AllChart';
+export {default as IndividualData} from './IndividualData';
+export {default as Data} from './Data';
