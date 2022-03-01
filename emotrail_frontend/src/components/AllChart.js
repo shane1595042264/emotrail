@@ -156,15 +156,31 @@ const AllChart = () => {
   // submit
   const [excelData, setExcelData]=useState(null);
   // it will contain array of objects
+  console.log(excelData);
+  var Freshman = excelData?.filter((i)=> i?.grade == 9)
+  var Sophomore = excelData?.filter((i)=> i?.grade == 10)
+  var Junior = excelData?.filter((i)=> i?.grade == 11)
+  var Senior = excelData?.filter((i)=> i?.grade == 12)
+  console.log(Freshman);
+
+  var FreshmanEmo = Freshman?.map((i)=> i.emotion)
+  console.log(FreshmanEmo);
   useEffect(() => {
   const count = emotionNum()
   }, [])
   
-  const fileType=['application/vnd.ms-excel'];
+  const handlEmo = (gradeGroup)=>{
+    const yellow = 0;
+    const green = 0;
+    const blue = 0;
+    const red = 0;
+  }
+  const fileType=['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
   const handleFile = (e)=>{
     let selectedFile = e.target.files[0];
+    console.log(selectedFile.type);
     if(selectedFile){
-      // console.log(selectedFile.type);
+      
       if(selectedFile&&fileType.includes(selectedFile.type)){
         let reader = new FileReader();
         reader.readAsArrayBuffer(selectedFile);
