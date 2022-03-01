@@ -7,7 +7,7 @@ const IndividualData = ({IndividualExcelData}) => {
     <th>{IndividualExcelData.round}</th>
     <th>{IndividualExcelData.grade}</th>
     <th>{IndividualExcelData.emotion}</th>
-    <th>{IndividualExcelData.time.slice(5)}</th>
+    <th>{IndividualExcelData.time}</th>
 
     </>
   )

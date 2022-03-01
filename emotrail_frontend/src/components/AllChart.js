@@ -73,31 +73,46 @@ export const options_line = {
   },
 };
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  export const data = {
+
+  function setData (currentGrade){ 
+    const data = {
     labels,
     datasets: [
       {
         label: 'Angry/Annoyed',
-        data: labels.map((item) => item = emotionNum('Angry/Annoyed')),
+        data: labels.map((month)=>{
+          let monthNum = 0;
+          currentGrade?.map((i)=>{
+            if(i.time !== month){
+              return;
+            }
+            if(i.time === month){
+              monthNum ++;
+            }
+          })
+          month = monthNum
+          }),
         backgroundColor: red,
       },
       {
         label: 'Sad/Bored',
-        data: labels.map((item ) => item = r(200)),
+        data: labels.map((item) => item = r(5)),
         backgroundColor: blue,
       },
       {
         label: 'Happy/Excited',
-        data: labels.map((item ) => item = emotionNum('Happy/Excited')),
+        data: labels.map((item ) => item = r(5)),
         backgroundColor: yellow,
       },
       {
         label: 'Relaxed/Satisfied',
-        data: labels.map((item ) => item = r(200)),
+        data: labels.map((item ) => item = r(5)),
         backgroundColor: green,
       },
     ],
   };
+  return data;
+}
   export const data_line = {
     labels,
     datasets: [
@@ -148,7 +163,7 @@ export const options_line = {
 
 const AllChart = () => {
   const [emoCount, setEmoCount] = useState(0)
-  
+ const [currentGrade, setCurrentGrade] = useState(null)
   // on change states
   const [excelFile, setExcelFile]=useState(null);
   const [excelFileError, setExcelFileError]=useState(null);  
@@ -156,24 +171,90 @@ const AllChart = () => {
   // submit
   const [excelData, setExcelData]=useState(null);
   // it will contain array of objects
+
+  function handleTimeGrade(item){
+    switch(item.time.slice(5,7)) {
+      case '01':
+        item.time = "January"
+        break;
+      case '02':
+        item.time = "February"
+        break;
+      case '03':
+        item.time = "March"
+        break;
+      case '04':
+        item.time = "April"
+        break;
+      case '05':
+        item.time = "May"
+        break;
+      case '06':
+        item.time = "June"
+        break;
+      case '07':
+        item.time = "July"
+        break;
+      case '08':
+        item.time = "August"
+        break;
+      case '09':
+        item.time = "September"
+        break;
+      case '10':
+        item.time = "October"
+        break;
+      case '11':
+        item.time = "November"
+        break;
+      case '12':
+        item.time = "December"
+        break;
+      default:
+        return;
+    }
+  }
   console.log(excelData);
-  var Freshman = excelData?.filter((i)=> i?.grade == 9)
-  var Sophomore = excelData?.filter((i)=> i?.grade == 10)
-  var Junior = excelData?.filter((i)=> i?.grade == 11)
-  var Senior = excelData?.filter((i)=> i?.grade == 12)
+  var Freshman = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 9)
+  var Sophomore = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 10)
+  var Junior = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 11)
+  var Senior = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 12)
   console.log(Freshman);
 
   var FreshmanEmo = Freshman?.map((i)=> i.emotion)
+  var SophomoreEmo = Sophomore?.map((i)=> i.emotion)
+  var JuniorEmo = Junior?.map((i)=> i.emotion)
+  var SeniorEmo = Senior?.map((i)=> i.emotion)
   console.log(FreshmanEmo);
   useEffect(() => {
   const count = emotionNum()
   }, [])
   
-  const handlEmo = (gradeGroup)=>{
-    const yellow = 0;
-    const green = 0;
-    const blue = 0;
-    const red = 0;
+  const handleEmo = (gradeGroup)=>{
+    var yellow = 0;
+    var green = 0;
+    var blue = 0;
+    var red = 0;
+    gradeGroup.forEach(function(item){
+      switch(item) {
+        case 'yellow':
+          yellow++
+          break;
+        case 'green':
+          green++
+          break;
+        case 'blue':
+          blue++
+          break;
+        case 'red':
+          red++
+          break;
+        default:
+          return;
+      }
+    })
+    var handledEmo = [yellow, green, blue, red];
+    return handledEmo;
   }
   const fileType=['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
   const handleFile = (e)=>{
@@ -214,6 +295,33 @@ const AllChart = () => {
     }
   }
   return  <div>
+  <div className=' flex justify-center items-center mt-5 p-5'>
+          
+          <button
+   type='button'
+   onClick={()=>setCurrentGrade(Freshman)}
+   className=' bg-yellow-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Freshman
+   </button>
+          <button
+   type='button'
+   onClick={()=>setCurrentGrade(Sophomore)}
+   className=' bg-green-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Sophomore
+   </button>
+          <button
+   type='button'
+   onClick={()=>setCurrentGrade(Junior)}
+   className=' bg-blue-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Junior
+   </button>
+          <button
+   type='button'
+   onClick={()=>setCurrentGrade(Senior)}
+   className=' bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
+    Senior
+   </button>
+</div>
       <div className="flex items-center justify-center">
 
 {/* upload file section */}
@@ -265,7 +373,7 @@ const AllChart = () => {
 </div>
 
 </div>
- <Bar options={options} data={data} />
+ <Bar options={options} data={setData(currentGrade)} />
     <Line options={options_line} data={data_line} />
     <Pie  data={data_pie} />
   </div>
