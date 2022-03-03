@@ -75,6 +75,7 @@ export const options_line = {
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
   function setData (currentGrade){ 
+    console.log("CurrentGrade: ", currentGrade);
     const data = {
     labels,
     datasets: [
@@ -83,14 +84,11 @@ export const options_line = {
         data: labels.map((month)=>{
           let monthNum = 0;
           currentGrade?.map((i)=>{
-            if(i.time !== month){
-              return;
-            }
             if(i.time === month){
               monthNum ++;
             }
           })
-          month = monthNum
+          month = 2
           }),
         backgroundColor: red,
       },
@@ -163,7 +161,7 @@ export const options_line = {
 
 const AllChart = () => {
   const [emoCount, setEmoCount] = useState(0)
- const [currentGrade, setCurrentGrade] = useState(null)
+ const [currentGrade, setCurrentGrade] = useState([])
   // on change states
   const [excelFile, setExcelFile]=useState(null);
   const [excelFileError, setExcelFileError]=useState(null);  
@@ -173,7 +171,7 @@ const AllChart = () => {
   // it will contain array of objects
 
   function handleTimeGrade(item){
-    switch(item.time.slice(5,7)) {
+    switch(item?.time?.slice(5,7)) {
       case '01':
         item.time = "January"
         break;
@@ -214,18 +212,21 @@ const AllChart = () => {
         return;
     }
   }
-  console.log(excelData);
-  var Freshman = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 9)
+  console.log("ExcelData: ", excelData);
+  var FreshmanTime = excelData?.map(({i})=>handleTimeGrade({i}))
+  var Freshman = FreshmanTime?.filter((i)=> i?.grade == 9)
   var Sophomore = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 10)
   var Junior = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 11)
   var Senior = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 12)
-  console.log(Freshman);
+  console.log("FreshmanTime: ", FreshmanTime);
+  console.log("ExcelDataAfterHandleTime: ", excelData);
+  console.log("Freshman: ", Freshman);
 
   var FreshmanEmo = Freshman?.map((i)=> i.emotion)
   var SophomoreEmo = Sophomore?.map((i)=> i.emotion)
   var JuniorEmo = Junior?.map((i)=> i.emotion)
   var SeniorEmo = Senior?.map((i)=> i.emotion)
-  console.log(FreshmanEmo);
+  // console.log(FreshmanEmo);
   useEffect(() => {
   const count = emotionNum()
   }, [])
