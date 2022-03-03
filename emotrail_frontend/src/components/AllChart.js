@@ -84,27 +84,59 @@ export const options_line = {
         data: labels.map((month)=>{
           let monthNum = 0;
           currentGrade?.map((i)=>{
-            if(i.time === month){
+            if(i.time == month && i.emotion == "red"){
               monthNum ++;
             }
           })
-          month = 2
+          console.log(monthNum);
+          month = monthNum
+          return month
           }),
         backgroundColor: red,
       },
       {
         label: 'Sad/Bored',
-        data: labels.map((item) => item = r(5)),
+        data: labels.map((month)=>{
+          let monthNum = 0;
+          currentGrade?.map((i)=>{
+            if(i.time == month && i.emotion == "blue" ){
+              monthNum ++;
+            }
+          })
+          console.log(monthNum);
+          month = monthNum
+          return month
+          }),
         backgroundColor: blue,
       },
       {
         label: 'Happy/Excited',
-        data: labels.map((item ) => item = r(5)),
+        data: labels.map((month)=>{
+          let monthNum = 0;
+          currentGrade?.map((i)=>{
+            if(i.time == month && i.emotion == "yellow"){
+              monthNum ++;
+            }
+          })
+          console.log(monthNum);
+          month = monthNum
+          return month
+          }),
         backgroundColor: yellow,
       },
       {
         label: 'Relaxed/Satisfied',
-        data: labels.map((item ) => item = r(5)),
+        data: labels.map((month)=>{
+          let monthNum = 0;
+          currentGrade?.map((i)=>{
+            if(i.time == month && i.emotion == "green"){
+              monthNum ++;
+            }
+          })
+          console.log(monthNum);
+          month = monthNum
+          return month
+          }),
         backgroundColor: green,
       },
     ],
@@ -209,11 +241,14 @@ const AllChart = () => {
         item.time = "December"
         break;
       default:
-        return;
+        console.log("Well nothing happened");
+        break;
+
     }
+    return item;
   }
   console.log("ExcelData: ", excelData);
-  var FreshmanTime = excelData?.map(({i})=>handleTimeGrade({i}))
+  var FreshmanTime = excelData?.map((i)=>handleTimeGrade(i))
   var Freshman = FreshmanTime?.filter((i)=> i?.grade == 9)
   var Sophomore = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 10)
   var Junior = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 11)
