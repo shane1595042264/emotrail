@@ -72,7 +72,7 @@ export const options_line = {
     },
   },
 };
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December'];
 
   function setData (currentGrade){ 
     console.log("CurrentGrade: ", currentGrade);
@@ -172,14 +172,21 @@ export const options_line = {
       },
     ],
   };
-  const grades= ['Freshman', 'Sophomore', 'Junior', 'Senior']
-  export const data_pie = {
+
+var gradeNames = ['Freshman', 'Sophomore', 'Junior', 'Senior']
+ function setDataPie(AllGrades){
+   const data_pie = {
     labels: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
     datasets: [
       {
 
         label: 'Average emotion scores',
-        data: grades.map((item) => item = r(200)),
+        data: gradeNames.map(function(item){
+          if(item == gradeInfo){
+            item = currentGrade;
+          }
+          return item;
+        }),
         backgroundColor: [
           red, blue, yellow, green
         ],
@@ -190,10 +197,14 @@ export const options_line = {
       },
     ],
   };
+  return data_pie;
+}
 
 const AllChart = () => {
   const [emoCount, setEmoCount] = useState(0)
  const [currentGrade, setCurrentGrade] = useState([])
+  const [gradeInfo, setGradeInfo] = useState('')
+  const [color, setColor] = useState("")
   // on change states
   const [excelFile, setExcelFile]=useState(null);
   const [excelFileError, setExcelFileError]=useState(null);  
@@ -201,6 +212,9 @@ const AllChart = () => {
   // submit
   const [excelData, setExcelData]=useState(null);
   // it will contain array of objects
+useEffect(() => {
+
+}, currentGrade)
 
   function handleTimeGrade(item){
     switch(item?.time?.slice(5,7)) {
@@ -247,51 +261,16 @@ const AllChart = () => {
     }
     return item;
   }
-  console.log("ExcelData: ", excelData);
-  var FreshmanTime = excelData?.map((i)=>handleTimeGrade(i))
-  var Freshman = FreshmanTime?.filter((i)=> i?.grade == 9)
+
+  var Freshman = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 9)
   var Sophomore = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 10)
   var Junior = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 11)
   var Senior = excelData?.map((i)=>handleTimeGrade(i))?.filter((i)=> i?.grade == 12)
-  console.log("FreshmanTime: ", FreshmanTime);
-  console.log("ExcelDataAfterHandleTime: ", excelData);
-  console.log("Freshman: ", Freshman);
 
-  var FreshmanEmo = Freshman?.map((i)=> i.emotion)
-  var SophomoreEmo = Sophomore?.map((i)=> i.emotion)
-  var JuniorEmo = Junior?.map((i)=> i.emotion)
-  var SeniorEmo = Senior?.map((i)=> i.emotion)
-  // console.log(FreshmanEmo);
-  useEffect(() => {
-  const count = emotionNum()
-  }, [])
+var grades = [Freshman, Sophomore, Junior, Senior];
   
-  const handleEmo = (gradeGroup)=>{
-    var yellow = 0;
-    var green = 0;
-    var blue = 0;
-    var red = 0;
-    gradeGroup.forEach(function(item){
-      switch(item) {
-        case 'yellow':
-          yellow++
-          break;
-        case 'green':
-          green++
-          break;
-        case 'blue':
-          blue++
-          break;
-        case 'red':
-          red++
-          break;
-        default:
-          return;
-      }
-    })
-    var handledEmo = [yellow, green, blue, red];
-    return handledEmo;
-  }
+
+
   const fileType=['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
   const handleFile = (e)=>{
     let selectedFile = e.target.files[0];
@@ -335,28 +314,31 @@ const AllChart = () => {
           
           <button
    type='button'
-   onClick={()=>setCurrentGrade(Freshman)}
+   onClick={()=>{setCurrentGrade(Freshman); setGradeInfo('Freshman'); setColor('text-yellow-500')}}
    className=' bg-yellow-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
     Freshman
    </button>
           <button
    type='button'
-   onClick={()=>setCurrentGrade(Sophomore)}
+   onClick={()=>{setCurrentGrade(Freshman); setGradeInfo('Sophomore'); setColor('text-green-500')}}
    className=' bg-green-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
     Sophomore
    </button>
           <button
    type='button'
-   onClick={()=>setCurrentGrade(Junior)}
+   onClick={()=>{setCurrentGrade(Freshman); setGradeInfo('Junior'); setColor('text-blue-500')}}
    className=' bg-blue-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
     Junior
    </button>
           <button
    type='button'
-   onClick={()=>setCurrentGrade(Senior)}
+   onClick={()=>{setCurrentGrade(Freshman); setGradeInfo('Senior'); setColor('text-red-500')}}
    className=' bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none'>
     Senior
    </button>
+</div>
+<div className='flex justify-center items-center text-lg'>
+  <p className={color}>Current grade: {gradeInfo} </p>
 </div>
       <div className="flex items-center justify-center">
 
@@ -410,8 +392,8 @@ const AllChart = () => {
 
 </div>
  <Bar options={options} data={setData(currentGrade)} />
-    <Line options={options_line} data={data_line} />
-    <Pie  data={data_pie} />
+    <Line options={options_line} data={setData(currentGrade)} />
+    <Pie  data={setDataPie(grades)} />
   </div>
   
 };
