@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Home from './container/Home';
 import { fetchUser } from './utils/fetchUser';
 import AllChart from './components/AllChart';
+import EmoSheet from './components/EmoSheet';
 
 
 
@@ -21,6 +22,7 @@ return(
       <Route path="login" element={<Login />} />
       <Route path="/*" element={<Home />} />
       <Route path="chart" element={<AllChart />} />
+      <Route path="emoSheet" element={<EmoSheet />} />
 
     </Routes>
 );

@@ -9,3 +9,4 @@ export {default as UserProfile} from './UserProfile';
 export {default as AllChart} from './AllChart';
 export {default as IndividualData} from './IndividualData';
 export {default as Data} from './Data';
+export {default as EmoSheet} from './EmoSheet';

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "astute-citadel-338122",
+  "private_key_id": "baf5f40d7ebe32084db5b59d60262b945f86215f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCo9AnuKIRrwYcv\n4G6rlcYZas/qTi9YIslH2Pj4BQ5hdup4XWVVTdjTJY6TVx9nC4t86GqngXYxJthr\n+NxKhh9BKLc4h1GATYWg3K8Ad8huJfUqrE5g789aFmV32F9cJWoBaIe4laVUjgq1\n/AHaEC6pAFuK8oHS7fvM8dPW9K25jiqyBPmeMct3uepmgfkMYPQpb9eJO0pfOd9d\noREaNQJkhbXRI/Gy9wcuTCVq7KuNq0nmsT3ryv/qwOGBaKdtJzz3Lf7ojTj8Yrms\nyplVxrUDW/U8N0AW7lM4CdSjpyZEkUiOGjisyEU9UdK0sWGt0vi1enN3mGjouBFp\nyVXZeQbdAgMBAAECggEAAf01iCYfZY8WuaTbyLI4242/qJyrUb0IP54nU6efA0sG\nr16o+lMf36kVZDQdGBp6jKUz2NHdOoDpkxYiQKuAbLKtBGZbcW0cyuwuNPsPd72o\nFx7z6mtjyNgpzMyxereHwvcN8Nv1mDH2xOO5E5KVfFVOB75STdGSBg70gxc2Eqwp\nnwZZ2ATDiTOwC38t/Hmo+nfJfK8eb2Gbspm7ZPOqr/VkrJlgL1fR+zV5a/XseF9M\n92CgxyaHjYMuRJs/daQ1YqyVkhH+Phk17Lw3Z75HtGrMWwGNRswgyfshcTwITJqw\nrmXN73AhIeKuGjtxrctpdNuHZK2VFqmqstx9L9L8BQKBgQDboFpnaJJ/1UvrGjz3\n20PnYVBl3R+VYzo/83aFZOXHwsnyCTFGgRLu5+Xn7ksufJJBvf7k2E//K3iUxyiI\nXtu+Ee83yTVLl0lB0TrtPKVILARZBx3/eDuYrigz0jlAvTACpMwuDeWvijFyY79D\nWLmLEXpo3q8iNobTMrNuk/yzUwKBgQDE70OeFCWU1FBKjZrrmQipAzZB+aQUqJAF\nKGBkbMTx22QOlB/pSR1W7SOH2mmzGQq/Ubx8stPU47nABjOWECimFe8E/1oZQXKR\n5cCixiUpxxtxI7vs8LSqxB0RXQziVNtG+O1taetalrO+GYuHqvScba+qNvJDuTGY\n2xHn7QfHDwKBgBsl3ibsKTe+AO1lx+WHaARg5hRBWhcYNeoTyTHCABlKPbY6Zqnl\naJa5eZTKwuZTJa0UtD5LctAC6pvRZnQ87YK4Ks7Fg139rGODXnpWxcN/FWZ/17ht\nf0hnNrb5JHSZLicVgdurghnJxkTyiYDkpcLH/U6bQCDFhrLykHV5u4HbAoGAE8jV\nyjPL8r/BsTu4rKKbNB+We9pQmaK1lU8RIAWtY37e9nf7HLyzrd/1CdjvdYa2hbH4\nda6hiWm3Z4s384N8EfNyJ9ZfftoMYIvsZm3xndja8OreHlewTteU9AGdIb/Up7Sq\nZauWcWtic16tnduW54A9faQ3goZAbVLU4a/2cBECgYB7qT4zPJjMyTlx8DQfgOYk\nx8vPHMwOeEdtjhj9SZUFRc2FAmSd4IQcl8toCwTp2BOKSQKxkHG5w7kKSzgAN6Y8\nWgza4Btl+2R4dJ/TI3JoB1qFaSgP0Nh2+vBmWqFRD3rjnZ5M64Ud6EegTu6nJ+gQ\nopTIL6y4Q72XzrKtAkYrkg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "emofilereceiver@astute-citadel-338122.iam.gserviceaccount.com",
+  "client_id": "109656648471948903349",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/emofilereceiver%40astute-citadel-338122.iam.gserviceaccount.com"
+}
