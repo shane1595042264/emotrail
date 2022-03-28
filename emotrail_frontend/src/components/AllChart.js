@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Papa from "papaparse";
 
 import * as XLSX from "xlsx";
 
 import Tabletop from 'tabletop'
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -218,19 +218,30 @@ function setDataPie(currentGrade) {
 }
 
 const AllChart = () => {
-  const [emoCount, setEmoCount] = useState(0);
   const [currentGrade, setCurrentGrade] = useState([]);
   const [gradeInfo, setGradeInfo] = useState(" ");
   const [color, setColor] = useState("");
   // on change states
   const [excelFile, setExcelFile] = useState(null);
   const [excelFileError, setExcelFileError] = useState(null);
-
+  const [sheetData, setSheetData] = useState([])
+  const [count, setCount] = useState(0)
   // submit
   const [excelData, setExcelData] = useState(null);
   // it will contain array of objects
   useEffect(() => {}, currentGrade);
-
+  useEffect(() => {
+    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vSR_anaes5n_YbQgWCLEhQYOJYiGCloz9fhb9Gnnf2ehqv7ItLmWpaFone2G0DgGg/pub?output=csv", {
+      download: true,
+      header: true,
+      complete: (results) => {
+        setSheetData(results.data);
+      },
+    });
+  }, [count])
+  
+  var temp = Array.from(sheetData);
+console.log("temp:", temp);
   function handleTimeGrade(item) {
     switch (item?.time?.slice(5, 7)) {
       case "01":
@@ -276,16 +287,29 @@ const AllChart = () => {
     return item;
   }
 
-  var Freshman = excelData
+
+  // var Freshman = excelData
+  //   ?.map((i) => handleTimeGrade(i))
+  //   ?.filter((i) => i?.grade == 9);
+  // var Sophomore = excelData
+  //   ?.map((i) => handleTimeGrade(i))
+  //   ?.filter((i) => i?.grade == 10);
+  // var Junior = excelData
+  //   ?.map((i) => handleTimeGrade(i))
+  //   ?.filter((i) => i?.grade == 11);
+  // var Senior = excelData
+  //   ?.map((i) => handleTimeGrade(i))
+  //   ?.filter((i) => i?.grade == 12);
+  var Freshman = temp
     ?.map((i) => handleTimeGrade(i))
     ?.filter((i) => i?.grade == 9);
-  var Sophomore = excelData
+  var Sophomore = temp
     ?.map((i) => handleTimeGrade(i))
     ?.filter((i) => i?.grade == 10);
-  var Junior = excelData
+  var Junior = temp
     ?.map((i) => handleTimeGrade(i))
     ?.filter((i) => i?.grade == 11);
-  var Senior = excelData
+  var Senior = temp
     ?.map((i) => handleTimeGrade(i))
     ?.filter((i) => i?.grade == 12);
 
@@ -330,6 +354,15 @@ const AllChart = () => {
   };
   return (
     <div>
+    {/* <button
+          type="button"
+          onClick={() => {
+            setCount(r(100))
+          }}
+          className=" bg-black text-white font-bold p-2 rounded-full w-28 outline-none"
+       > Render </button> */}
+
+
       <div className=" flex justify-center items-center mt-5 p-5">
         <button
           type="button"
@@ -441,9 +474,8 @@ const AllChart = () => {
       </div>
       <Bar options={options} data={setData(currentGrade)} />
       <Line options={options_line} data={setData(currentGrade)} />
-      <Pie data={setDataPie(currentGrade)} />
+      {/* <Pie data={setDataPie(currentGrade)} /> */}
 
-      {console.log("setData: ", setData(currentGrade))}
     </div>
   );
 };
