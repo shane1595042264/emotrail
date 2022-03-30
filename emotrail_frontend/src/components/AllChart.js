@@ -66,6 +66,8 @@ export const options_line = {
     },
   },
 };
+
+
 const labels = [
   "January",
   "February",
@@ -184,39 +186,33 @@ export const data_line = {
   ],
 };
 
-var emotionNames = [
-  "Happy/Excited",
-  "Relaxed/Satisfied",
-  "Sad/Bored",
-  "Angry/Annoyed",
-];
-function setDataPie(currentGrade) {
-  const data_pie = {
-    labels: emotionNames,
-    datasets: [
-      {
-        label: "Average emotion scores",
-        data: emotionNames.map(function (item) {
-          let emoNumber = 0;
-          currentGrade.map((i)=>{
-            if(i?.emotion == item){
-              emoNumber++
-            }
-          })
-          item = emoNumber;
-          return item;
-        }),
-        backgroundColor: [red, blue, yellow, green],
-        borderColor: [red, blue, yellow, green],
-        borderWidth: 1,
-      },
-    ],
-  };
 
-  console.log("Data Pie data:", data_pie.datasets);
-  return data_pie;
+
+function setPieData(currentGrade){
+ const pie_data = {
+  labels: ['Angry/Annoyed', 'Sad/Bored', 'Happy/Excited', 'Released/Satisfied',],
+  datasets: [
+    {
+      label: '# of Votes',
+      data: [currentGrade.filter(item=>item.emotion == "red").length, 19, 3, 5],
+      backgroundColor: [
+        red,
+        blue,
+        yellow,
+        green
+      ],
+      borderColor: [
+        red,
+        blue,
+        yellow,
+        green
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
+return pie_data;
 }
-
 const AllChart = () => {
   const [currentGrade, setCurrentGrade] = useState([]);
   const [gradeInfo, setGradeInfo] = useState(" ");
@@ -314,6 +310,7 @@ console.log("temp:", temp);
     ?.filter((i) => i?.grade == 12);
 
   // var grades = [Freshman, Sophomore, Junior, Senior];
+  
 
   const fileType = [
     "application/vnd.ms-excel",
@@ -474,6 +471,7 @@ console.log("temp:", temp);
       </div>
       <Bar options={options} data={setData(currentGrade)} />
       <Line options={options_line} data={setData(currentGrade)} />
+      <Pie data={setPieData()} />
       {/* <Pie data={setDataPie(currentGrade)} /> */}
 
     </div>
