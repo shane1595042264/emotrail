@@ -3,7 +3,6 @@ import Papa from "papaparse";
 
 import * as XLSX from "xlsx";
 
-import Tabletop from 'tabletop'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -18,12 +17,9 @@ import {
 } from "chart.js";
 
 import { Pie } from "react-chartjs-2";
-import { emotionNum } from "../utils/data";
 
 import { Bar } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
-import { userQuery } from "../utils/data";
-import { client } from "../client";
 import Data from "./Data";
 function r(max) {
   return Math.floor(Math.random() * max);
@@ -104,6 +100,7 @@ function setData(currentGrade) {
           return month;
         }),
         backgroundColor: red,
+        borderColor:'rgb(255, 48, 3)',
       },
       {
         label: "Sad/Bored",
@@ -119,6 +116,7 @@ function setData(currentGrade) {
           return month;
         }),
         backgroundColor: blue,
+        borderColor:'rgb(5, 232, 254)',
       },
       {
         label: "Happy/Excited",
@@ -134,6 +132,7 @@ function setData(currentGrade) {
           return month;
         }),
         backgroundColor: yellow,
+        borderColor:yellow,
       },
       {
         label: "Relaxed/Satisfied",
@@ -149,6 +148,7 @@ function setData(currentGrade) {
           return month;
         }),
         backgroundColor: green,
+        borderColor:green,
       },
     ],
   };
@@ -225,7 +225,7 @@ const AllChart = () => {
   const [excelFile, setExcelFile] = useState(null);
   const [excelFileError, setExcelFileError] = useState(null);
   const [sheetData, setSheetData] = useState([])
-  const [count, setCount] = useState(0)
+ 
   // submit
   const [excelData, setExcelData] = useState(null);
   // it will contain array of objects
@@ -238,7 +238,7 @@ const AllChart = () => {
         setSheetData(results.data);
       },
     });
-  }, [count])
+  }, [])
   
   var temp = Array.from(sheetData);
 console.log("temp:", temp);
