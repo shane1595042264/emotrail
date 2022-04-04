@@ -188,13 +188,17 @@ export const data_line = {
 
 
 
-function setPieData(currentGrade){
+function setPieData(currentGrade, time){
+  console.log("Current Grade: ", currentGrade);
  const pie_data = {
   labels: ['Angry/Annoyed', 'Sad/Bored', 'Happy/Excited', 'Released/Satisfied',],
   datasets: [
     {
       label: '# of Votes',
-      data: [currentGrade.filter(item=>item.emotion == "red").length, 19, 3, 5],
+      data: [currentGrade?.filter(item=>item.emotion == "red"&&item.time==time).length,
+      currentGrade?.filter(item=>item.emotion == "blue"&&item.time==time).length, 
+      currentGrade?.filter(item=>item.emotion == "yellow"&&item.time==time).length, 
+      currentGrade?.filter(item=>item.emotion == "green"&&item.time==time).length],
       backgroundColor: [
         red,
         blue,
@@ -215,6 +219,7 @@ return pie_data;
 }
 const AllChart = () => {
   const [currentGrade, setCurrentGrade] = useState([]);
+  const [time, setTime] = useState(" ")
   const [gradeInfo, setGradeInfo] = useState(" ");
   const [color, setColor] = useState("");
   // on change states
@@ -471,7 +476,24 @@ console.log("temp:", temp);
       </div>
       <Bar options={options} data={setData(currentGrade)} />
       <Line options={options_line} data={setData(currentGrade)} />
-      <Pie data={setPieData()} />
+      <select className=" flex items-center justify-center" onChange={e => setTime(e.target.value)}>
+      
+  <option value="Empty">Empty</option>
+  <option value="January">January</option>
+  <option value="February">February</option>
+  <option value="March">March</option>
+  <option value="April">April</option>
+  <option value="May">May</option>
+  <option value="June">June</option>
+  <option value="July">July</option>
+  <option value="August">August</option>
+  <option value="September">September</option>
+  <option value="October">October</option>
+  <option value="November">November</option>
+  <option value="December">December</option>
+</select>
+{console.log("Time:", time)}
+      <Pie data={setPieData(currentGrade, time)} />
       {/* <Pie data={setDataPie(currentGrade)} /> */}
 
     </div>
