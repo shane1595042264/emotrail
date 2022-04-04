@@ -58,6 +58,13 @@ export const userQuery = (userId) => {
 
     return query;
 }
+export const chartQuery = () => {
+    const query = `*[_type=="user" && _id == '${userId}']`;
+    // Ssanity Query
+
+    return query;
+}
+
 
 export const userCreatedPinsQuery = (userId) => {
   const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
