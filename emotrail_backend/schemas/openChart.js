@@ -1,6 +1,12 @@
 export default{
     name:"chartPermission",
     title:"ChartPermission",
-    type:"boolean",
-    initialValue: false,
+    type:"object",
+    fields: [{
+        tittle: "Permission",
+        name: "permission",
+        type: "boolean"
+
+    },
+    ],
 }

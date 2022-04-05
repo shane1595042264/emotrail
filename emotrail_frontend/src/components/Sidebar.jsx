@@ -7,8 +7,7 @@ import logo from '../assets/logo3.png';
 import {categories} from '../utils/data';
 import { useFetch } from "react-async";
 import { client } from '../client';
-import openChart from '../../../emotrail_backend/schemas/openChart';
-
+import {permissionQuery} from '../utils/data';
 
 
 const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize';
@@ -16,15 +15,22 @@ const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 bo
 
 
 const Sidebar = ({user, closeToggle}) => {
-
+    const [chart, setChart] = useState(false)
+    const fetchPermission = ()=>{
+        let query = permissionQuery();
+        if(query){
+          client.fetch(query)
+          .then((data)=>{
+            console.log("permissionToView:", data);
+          })
+        }
+    }
     const handleCloseSidebar = () => {
         if(closeToggle) closeToggle(false)
     }
-    const [chart, setChart] = useState(false)
+    
 useEffect(() => {
-    client.fetch(openChart).then((isOpen)=>{
-        console.log(`Chart status: ${isOpen}`);
-    }).catch(e=> console.log(e))
+    fetchPermission();
 }, [])
 
     return (

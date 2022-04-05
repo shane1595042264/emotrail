@@ -58,12 +58,14 @@ export const userQuery = (userId) => {
 
     return query;
 }
-export const chartQuery = () => {
-    const query = `*[_type=="user" && _id == '${userId}']`;
+export const permissionQuery = () => {
+    const query = `*[name == "chartPermission"]`;
     // Ssanity Query
 
     return query;
 }
+
+
 
 
 export const userCreatedPinsQuery = (userId) => {
