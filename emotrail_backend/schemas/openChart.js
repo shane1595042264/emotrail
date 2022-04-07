@@ -1,7 +1,7 @@
 export default{
     name:"chartPermission",
     title:"ChartPermission",
-    type:"object",
+    type:"document",
     fields: [{
         tittle: "Permission",
         name: "permission",

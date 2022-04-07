@@ -59,7 +59,7 @@ export const userQuery = (userId) => {
     return query;
 }
 export const permissionQuery = () => {
-    const query = `*[name == "chartPermission"]`;
+    const query = `*[_type=="chartPermission"]`;
     // Ssanity Query
 
     return query;

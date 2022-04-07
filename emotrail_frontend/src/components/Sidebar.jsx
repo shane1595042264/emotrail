@@ -16,17 +16,37 @@ const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 bo
 
 const Sidebar = ({user, closeToggle}) => {
     const [chart, setChart] = useState(false)
+    const [permissionID, setPermissionID] = useState('Nothing')
     const fetchPermission = ()=>{
         let query = permissionQuery();
         if(query){
           client.fetch(query)
           .then((data)=>{
-            console.log("permissionToView:", data);
+            console.log("permissionToView:", data[0].permission);
+            setChart(data[0].permission)
+            setPermissionID(data[0]._id)
+            console.log('the ID for the permission is, ', permissionID);
           })
         }
     }
     const handleCloseSidebar = () => {
         if(closeToggle) closeToggle(false)
+    }
+    const handleChart = ()=>{
+        if(chart){setChart(false)}
+        else{
+            setChart(true)
+        }
+
+        client.patch(permissionID)
+        .set({permission: chart})
+        .commit()
+        .then((e)=>{
+            console.log('Chart permission successfully changed to', chart);
+        })
+        .catch((err)=>{
+            console.log('chart change failed', err.message);
+        })
     }
     
 useEffect(() => {
@@ -45,28 +65,16 @@ useEffect(() => {
                 <img src={logo} alt="logo" className=" w-full"/>
                 </Link>
                
-                {/* Chart */}
-                
-               
-               
-                   
+                {/* Toggle Chart */}
                         {(user?.admin ) && <button
           type='button'
-          className=' absolute bottom-3 left-3 p-3 rounded-full bg-green-600 text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out'
-          onClick={()=>{console.log('yes');  console.log(!!user.admin);}}
+          className=' flex bottom-3 left-3 p-3 rounded-full bg-green-600 text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out'
+          onClick={()=>{handleChart(); console.log(`Now the chart status is ${chart}`);}}
           >
-          {console.log(user)}
-
-                {true && <Link
-                   to="/chart"
-                   className="flex px-5 gap-2 my-6 pt-1 w-190 items-center"
-                    >
                 <AiFillPieChart fontSize={30} className='cursor-pointer w-full'/>
                 Click to Toggle chart.
-                </Link>}
-
-
           </button> }
+          <p>The chart is now: {chart ? "unavailable": "available"}</p>
                    {(user?.admin ||chart) && <button
           type='button'
           className=' absolute bottom-3 right-3 p-3 rounded-full bg-red-600 text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out'
