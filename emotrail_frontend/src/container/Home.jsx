@@ -3,7 +3,7 @@ import {HiMenu} from 'react-icons/hi';
 import {AiFillCloseCircle} from 'react-icons/ai';
 import {Link, Route, Routes} from 'react-router-dom';
 import {userQuery} from '../utils/data';
-import {Sidebar, UserProfile} from '../components';
+import {Footer, Sidebar, UserProfile} from '../components';
 import Pins from './Pins';
 import {client} from '../client';
 import logo from '../assets/logo3.png';
@@ -75,7 +75,7 @@ const Home = () => {
                         </Routes>
                         
                 </div>
-                
+                <Footer />
         </div>
         
     )
