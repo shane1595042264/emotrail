@@ -99,7 +99,7 @@ if(!pinDetail) return <Spinner message="Loading pin..."/>
 {pinDetail.about}
     </p>
 </div>
-<Link to={`user-profile/${pinDetail.postedBy?._id}`} className=' flex gap-2 mt-2 items-center'>
+<Link to={`/user-profile/${pinDetail.postedBy?._id}`} className=' flex gap-2 mt-2 items-center'>
   <img className=' w-8 h-8 rounded-full object-cover'
     src={pinDetail.postedBy?.image}
     alt="user-profile"
