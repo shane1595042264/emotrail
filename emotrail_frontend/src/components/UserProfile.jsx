@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { AiOutlineLogout } from 'react-icons/ai';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GoogleLogout } from 'react-google-login';
-
+import { fetchUser } from '../utils/fetchUser';
 import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/data';
 
 import { client } from '../client';
@@ -22,7 +22,11 @@ const UserProfile = () => {
     const [activeBtn, setActiveBtn] = useState('created');
     const navigate = useNavigate();
     const {userId} = useParams();
-
+    useEffect(() => {
+    const user = fetchUser();  
+    
+    if(!user) navigate('/login');
+    }, []);
     useEffect(() => {
       const query = userQuery(userId);
 

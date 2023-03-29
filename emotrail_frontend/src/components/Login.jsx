@@ -5,7 +5,7 @@ import { FcGoogle } from 'react-icons/fc';
 import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
 import logo2 from '../assets/emo2trans.png';
-
+import Footer from './Footer'
 import { client } from '../client';
 
 const Login = () => {
@@ -63,7 +63,9 @@ const Login = () => {
                         />
                     </div>
                 </div>
+                <Footer/>
             </div>
+            
         </div>
     );
 };

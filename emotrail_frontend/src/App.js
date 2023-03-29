@@ -15,7 +15,7 @@ const navigate = useNavigate();
 useEffect(() => {
 const user = fetchUser();  
 
-if(!user) navigate('/login');
+if(!user) console.log('no user');
 }, []);
 
 return(
